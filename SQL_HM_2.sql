@@ -288,7 +288,3 @@ values(1, 5),
 (38, 12),
 (39, 11),
 (40, 10);
-
-select * from roles_employee;
-select * from employees;
-select * from roles;
