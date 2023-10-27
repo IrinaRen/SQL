@@ -1,37 +1,37 @@
--- Найдите номер модели, скорость и размер жесткого диска для всех ПК стоимостью менее 500 дол. 
+--1. Найдите номер модели, скорость и размер жесткого диска для всех ПК стоимостью менее 500 дол. 
 -- Вывести: model, speed и hd
 SELECT model, speed, hd
 FROM PC
 WHERE price < 500
  ;
 
--- Найдите производителей принтеров. Вывести: maker
+--2. Найдите производителей принтеров. Вывести: maker
 SELECT DISTINCT maker
 FROM Product
 WHERE type='Printer'
 ;
 
--- Найдите номер модели, объем памяти и размеры экранов ПК-блокнотов,
+--3. Найдите номер модели, объем памяти и размеры экранов ПК-блокнотов,
 -- цена которых превышает 1000 дол.
 SELECT model, ram, screen
 FROM Laptop
 WHERE price>1000
 ;
 
--- Найдите все записи таблицы Printer для цветных принтеров.
+--4. Найдите все записи таблицы Printer для цветных принтеров.
 SELECT *
 FROM Printer
 WHERE color='y'
 ;
 
--- Найдите номер модели, скорость и размер жесткого диска ПК, 
+--5. Найдите номер модели, скорость и размер жесткого диска ПК, 
 -- имеющих 12x или 24x CD и цену менее 600 дол.
 SELECT DISTINCT model, speed, hd
 FROM PC
 WHERE cd IN ('12x','24x') AND price<600
 ;
 
--- Для каждого производителя, выпускающего ПК-блокноты
+--6. Для каждого производителя, выпускающего ПК-блокноты
 -- c объёмом жесткого диска не менее 10 Гбайт, 
 -- найти скорости таких ПК-блокнотов. Вывод: производитель, скорость.
 SELECT DISTINCT maker, speed FROM laptop
@@ -40,7 +40,7 @@ ON product.model=laptop.model
 WHERE hd>=10
 ;
 
--- Найдите номера моделей и цены всех имеющихся в продаже продуктов (любого типа) 
+--7. Найдите номера моделей и цены всех имеющихся в продаже продуктов (любого типа) 
 -- производителя B (латинская буква).
 SELECT product.model, price FROM PC
 JOIN product
@@ -62,7 +62,7 @@ ON product.model=printer.model
 WHERE maker='B'
 ;
 
--- Найдите производителя, выпускающего ПК, но не ПК-блокноты.
+--8. Найдите производителя, выпускающего ПК, но не ПК-блокноты.
 SELECT maker FROM Product
 WHERE type='PC'
  
@@ -72,32 +72,32 @@ SELECT maker FROM Product
 WHERE type='Laptop'
 ;
 
--- Найдите производителей ПК с процессором не менее 450 Мгц. Вывести: Maker
+--9. Найдите производителей ПК с процессором не менее 450 Мгц. Вывести: Maker
 SELECT DISTINCT maker FROM Product
 JOIN pc
 ON PC.model=product.model
 WHERE speed>='450'
 ;
 
--- Найдите модели принтеров, имеющих самую высокую цену. Вывести: model, price
+--10. Найдите модели принтеров, имеющих самую высокую цену. Вывести: model, price
 SELECT model, price
 FROM Printer
 WHERE price=(SELECT MAX(price)
 FROM Printer);
 ;
 
--- Найдите среднюю скорость ПК.
+--11. Найдите среднюю скорость ПК.
 SELECT AVG(speed) AS Avg_speed
 FROM PC
 ;
 
--- Найдите среднюю скорость ПК-блокнотов, цена которых превышает 1000 дол.
+--12. Найдите среднюю скорость ПК-блокнотов, цена которых превышает 1000 дол.
 SELECT AVG(speed) AS Avg_speed
 FROM laptop
 WHERE price>1000
 ;
 
--- Найдите среднюю скорость ПК, выпущенных производителем A.
+--13. Найдите среднюю скорость ПК, выпущенных производителем A.
 SELECT AVG(speed) AS Avg_speed
 FROM PC
 WHERE model IN(SELECT model
@@ -105,21 +105,21 @@ WHERE model IN(SELECT model
  WHERE maker = 'A'
  );
 
--- Найдите класс, имя и страну для кораблей из таблицы Ships, имеющих не менее 10 орудий.
+--14. Найдите класс, имя и страну для кораблей из таблицы Ships, имеющих не менее 10 орудий.
 SELECT ships.class, ships.name, country
 FROM ships JOIN 
 classes ON classes.class = ships.class
 WHERE numGuns>=10
 ;
 
--- Найдите размеры жестких дисков, совпадающих у двух и более PC.
+--15. Найдите размеры жестких дисков, совпадающих у двух и более PC.
 -- Вывести: HD
 SELECT hd FROM PC 
 GROUP BY hd
 HAVING COUNT(*)>=2
 ;
 
--- Найдите пары моделей PC, имеющих одинаковые скорость и RAM. 
+--16. Найдите пары моделей PC, имеющих одинаковые скорость и RAM. 
 -- В результате каждая пара указывается только один раз, т.е. (i,j), но не (j,i), 
 -- Порядок вывода: модель с большим номером,модель с меньшим номером, скорость и RAM.
 SELECT DISTINCT pc_1.model, pc_2.model, pc_1.speed, pc_1.ram
@@ -128,7 +128,7 @@ WHERE pc_1.speed =pc_2.speed AND pc_1.ram=pc_2.ram AND
 pc_1.model > pc_2.model
 ;
 
--- Найдите модели ПК-блокнотов, скорость которых меньше скорости каждого из ПК.
+--17. Найдите модели ПК-блокнотов, скорость которых меньше скорости каждого из ПК.
 -- Вывести: type, model, speed
 SELECT DISTINCT type, Laptop.model, Laptop.speed
 FROM Product, Laptop
@@ -136,7 +136,7 @@ WHERE type='Laptop' AND speed < ALL (SELECT speed
 FROM PC)
  ;
 
--- Найдите производителей самых дешевых цветных принтеров. 
+--18. Найдите производителей самых дешевых цветных принтеров. 
 -- Вывести: maker, price
 SELECT maker, price
 FROM Product 
@@ -146,7 +146,16 @@ WHERE price = (SELECT MIN(price) FROM Printer WHERE color='y') AND color='y'
 GROUP BY maker, price
 ;
 
--- Найдите производителей, выпускающих по меньшей мере три различных модели ПК.
+--19. Для каждого производителя, имеющего модели в таблице Laptop, найдите средний размер экрана выпускаемых им ПК-блокнотов.
+-- Вывести: maker, средний размер экрана.
+SELECT DISTINCT maker, AVG(screen) as Avg_screen
+FROM Product
+JOIN Laptop
+ON Product.model=laptop.model
+WHERE type='laptop'
+GROUP BY maker
+ 
+--20. Найдите производителей, выпускающих по меньшей мере три различных модели ПК.
 -- Вывести: Maker, число моделей ПК.
 SELECT DISTINCT maker, COUNT(model) AS COUNT_model
 FROM Product
@@ -155,7 +164,7 @@ GROUP BY maker
 HAVING COUNT(*)>=3
 ;
 
--- Найдите максимальную цену ПК, выпускаемых каждым производителем,
+--21. Найдите максимальную цену ПК, выпускаемых каждым производителем,
 --  у которого есть модели в таблице PC.
 -- Вывести: maker, максимальная цена.
 SELECT maker, MAX(price)
@@ -165,7 +174,7 @@ ON pc.model=product.model
 GROUP BY maker
 ;
 
--- Для каждого значения скорости ПК, превышающего 600 МГц, 
+--22. Для каждого значения скорости ПК, превышающего 600 МГц, 
 -- определите среднюю цену ПК с такой же скоростью. 
 -- Вывести: speed, средняя цена.
 SELECT speed, AVG(price)
@@ -174,7 +183,7 @@ WHERE speed>600
 GROUP BY speed
 ;
 
--- Найдите производителей, которые производили бы как ПК
+--23. Найдите производителей, которые производили бы как ПК
 -- со скоростью не менее 750 МГц, так и ПК-блокноты со скоростью не менее 750 МГц.
 -- Вывести: Maker
 SELECT maker
@@ -202,3 +211,4 @@ JOIN Laptop
 ON Product.model=Laptop.model
 WHERE speed>=750
 ;
+
