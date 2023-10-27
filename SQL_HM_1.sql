@@ -188,7 +188,6 @@ values (71, 1),
 (29, 7),
 (30, 8);
 
-
 --Таблица roles
 --
 --Создать таблицу roles
@@ -243,7 +242,6 @@ foreign key (employee_id) references employees(id),
 role_id int not null,
 foreign key(role_id) references roles(id)
 );
-
 
 --Наполнить таблицу roles_employee 40 строками:
 --
