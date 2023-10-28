@@ -131,6 +131,15 @@ values(1000),
 (2400),
 (2500);
 
+
+--Добавить в таблицу salary 3 новых позиций monthly_salary:
+insert into salary(monthly_salary)
+values(1850),
+(1750),
+(1250),
+(2150),
+(2250);
+
 --Таблица employee_salary
 --
 --Создать таблицу employee_salary
